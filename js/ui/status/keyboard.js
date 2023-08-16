@@ -198,7 +198,9 @@ class InputSourceSystemSettings extends InputSourceSettings {
         this._variants = '';
         this._options = '';
 
-        this._reload();
+        this._reload().catch(error => {
+            logError(error, 'Could not reload system input settings');
+        });
 
         Gio.DBus.system.signal_subscribe(this._BUS_NAME,
             this._BUS_PROPS_IFACE,
